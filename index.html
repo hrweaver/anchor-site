@@ -3,73 +3,451 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Anchor</title>
-<meta name="description" content="Anchor: accountability for your phone. On Google Play now, coming soon to iPhone.">
-<meta property="og:title" content="Anchor">
-<meta property="og:description" content="Accountability for your phone.">
+<title>Anchor · A healthier relationship with your phone</title>
+<meta name="description" content="Anchor puts a person you trust on the other side of every unlock. Accountability for phone habits, whether that is your partner, your parents, or your friends. Live on Google Play.">
+<meta property="og:title" content="Anchor · A healthier relationship with your phone">
+<meta property="og:description" content="Better habits do not come from willpower. They come from doing it with someone.">
 <meta property="og:url" content="https://anchorph.one">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0B10">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=Spline+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0A0B10;
-    --ink:#EDEFF7; --muted:#9098B4; --faint:#5B6178;
-    --accent:#7C8FE8; --line:#23273A;
+    --bg:#0A0B10; --ink:#EDEFF7; --muted:#B7BCD0; --faint:#5B6178;
+    --accent:#7C8FE8; --accent-ink:#A9B5F6; --line:#23273A; --panel:#12141C;
     --font-d:"Bricolage Grotesque",system-ui,sans-serif;
     --font-b:"Spline Sans",system-ui,sans-serif;
+    --wrap:1080px;
   }
   *{box-sizing:border-box}
-  body{margin:0;color:var(--ink);font-family:var(--font-b);
-       min-height:100svh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;
-       background:radial-gradient(115% 75% at 50% -8%,rgba(124,143,232,.12),transparent 58%),var(--bg)}
-  main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-       text-align:center;padding:clamp(28px,6vw,64px) 22px}
-  .stage{display:flex;flex-direction:column;align-items:center;max-width:520px}
-  .eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;
-           color:var(--faint);margin:0 0 26px}
-  .wordmark{height:clamp(38px,7vw,58px);display:block}
-  h1{font-family:var(--font-d);font-weight:600;font-size:clamp(1.6rem,3.6vw,2.35rem);
-     letter-spacing:-.02em;line-height:1.12;margin:clamp(26px,4vw,38px) 0 0;text-wrap:balance}
-  .sub{color:var(--muted);font-size:clamp(.98rem,1.9vw,1.08rem);line-height:1.55;
-       margin:16px 0 0;max-width:40ch}
-  .btn{display:inline-flex;align-items:center;gap:10px;margin-top:clamp(30px,5vw,40px);
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--muted);font-family:var(--font-b);
+       line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  /* ---------- shared ---------- */
+  .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 22px}
+  section{padding:clamp(64px,9vw,116px) 0;position:relative}
+  .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
+           color:var(--accent-ink);margin:0 0 14px}
+  h1,h2,h3{font-family:var(--font-d);color:var(--ink);letter-spacing:-.02em;
+           line-height:1.1;margin:0;text-wrap:balance}
+  h2{font-weight:600;font-size:clamp(1.7rem,4vw,2.6rem)}
+  h3{font-weight:600;font-size:1.16rem;letter-spacing:-.01em;line-height:1.3}
+  p{margin:0}
+  .lede{font-size:clamp(1rem,1.7vw,1.12rem);margin-top:18px;max-width:56ch;color:var(--muted)}
+  .head{max-width:640px}
+  .head.center{margin:0 auto;text-align:center}
+  .head.center .lede{margin-left:auto;margin-right:auto}
+  .rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;
        border:1px solid var(--line);border-radius:13px;padding:13px 22px;
        background:rgba(255,255,255,.03);color:var(--ink);
-       font-weight:500;font-size:.98rem;text-decoration:none;
+       font-family:var(--font-b);font-weight:500;font-size:.98rem;text-decoration:none;
        transition:border-color .2s,background .2s,transform .2s}
   .btn:hover{border-color:var(--accent);background:rgba(124,143,232,.08);transform:translateY(-1px)}
   .btn svg{width:16px;height:16px;fill:var(--accent);flex:none}
-  .soon{margin:18px 0 0;font-size:.82rem;letter-spacing:.02em;color:var(--faint)}
-  footer{padding:22px;color:var(--faint);font-size:.8rem;display:flex;gap:16px;
-         justify-content:center;flex-wrap:wrap}
+  .btn.primary{border-color:rgba(124,143,232,.42);background:rgba(124,143,232,.12)}
+  .btn.primary:hover{background:rgba(124,143,232,.2)}
+  .btn.ghost{border-color:transparent;background:none;color:var(--muted);padding-left:6px}
+  .btn.ghost:hover{color:var(--ink);background:none;border-color:transparent}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+  .chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);
+        border-radius:999px;padding:5px 12px;font-size:.74rem;font-weight:500;
+        letter-spacing:.02em;color:var(--muted);white-space:nowrap}
+  .chip.live{border-color:rgba(124,143,232,.4);color:var(--accent-ink)}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--faint);flex:none}
+  .chip.live .dot{background:var(--accent)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;
+        padding:clamp(22px,2.6vw,30px);transition:border-color .25s,transform .25s}
+  .card:hover{border-color:#2E3350;transform:translateY(-2px)}
+  .icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;
+        justify-content:center;background:rgba(124,143,232,.1);
+        border:1px solid rgba(124,143,232,.18);margin-bottom:18px}
+  .icon svg{width:20px;height:20px;stroke:var(--accent-ink);fill:none;
+            stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .card p{margin-top:10px;font-size:.96rem}
+
+  /* ---------- topbar ---------- */
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(10,11,16,.82);
+          backdrop-filter:blur(10px);border-bottom:1px solid transparent;
+          transition:border-color .25s}
+  .topbar.stuck{border-bottom-color:var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:18px;height:62px}
+  .topbar .home{display:flex;align-items:center;margin-right:auto}
+  .topbar .wordmark{height:23px;display:block}
+  .navlinks{display:flex;gap:22px}
+  .navlinks a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
+  .navlinks a:hover{color:var(--ink)}
+  .topbar .btn{padding:9px 16px;font-size:.88rem;border-radius:11px}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(56px,10vw,104px);padding-bottom:clamp(56px,8vw,96px);
+        text-align:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+        background:radial-gradient(1100px 620px at 50% -60px,rgba(124,143,232,.17),transparent 72%)}
+  .hero .wrap{position:relative}
+  .stage{display:flex;flex-direction:column;align-items:center;max-width:720px;margin:0 auto}
+  .hero .wordmark{height:clamp(34px,6vw,50px);display:block}
+  .hero h1{font-weight:600;font-size:clamp(2.05rem,5.6vw,3.5rem);
+           margin:clamp(26px,4vw,38px) 0 0;max-width:16ch}
+  .hero .sub{color:var(--muted);font-size:clamp(1rem,2vw,1.16rem);line-height:1.55;
+             margin:20px 0 0;max-width:46ch}
+  .hero .ctas{margin-top:clamp(28px,4vw,38px);justify-content:center}
+  .hero .soon{margin:20px 0 0;font-size:.82rem;color:var(--faint)}
+
+  /* ---------- grids ---------- */
+  .grid{display:grid;gap:16px;margin-top:clamp(34px,5vw,52px)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr);gap:18px}
+
+  /* ---------- steps ---------- */
+  .steps{counter-reset:s;display:grid;gap:2px;margin-top:clamp(34px,5vw,52px);
+         border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--line)}
+  .step{background:var(--panel);padding:clamp(20px,2.6vw,28px);display:flex;gap:18px;
+        align-items:flex-start;transition:background .25s}
+  .step:hover{background:#161925}
+  .step .num{counter-increment:s;font-family:var(--font-d);font-weight:700;font-size:.82rem;
+             color:var(--accent-ink);border:1px solid rgba(124,143,232,.28);
+             background:rgba(124,143,232,.08);border-radius:9px;
+             width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center}
+  .step .num::before{content:counter(s)}
+  .step p{margin-top:7px;font-size:.96rem;max-width:62ch}
+
+  /* ---------- product cards ---------- */
+  .product{display:flex;flex-direction:column}
+  .product .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .product h3{font-size:1.5rem;font-weight:700}
+  .product .tag{margin-top:8px;color:var(--accent-ink);font-size:.97rem}
+  .product ul{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:11px}
+  .product li{position:relative;padding-left:24px;font-size:.94rem;line-height:1.5}
+  .product li::before{content:"";position:absolute;left:6px;top:.62em;width:5px;height:5px;
+        border-radius:50%;background:var(--accent);opacity:.7}
+  .product .foot{margin-top:auto;padding-top:26px}
+  .product .note{margin-top:12px;font-size:.82rem;color:var(--faint);max-width:44ch}
+
+  /* ---------- trust ---------- */
+  .trust{background:
+     radial-gradient(80% 60% at 50% 0%,rgba(124,143,232,.07),transparent 70%)}
+  .trust .wrap{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1fr);
+        gap:clamp(28px,5vw,72px);align-items:start}
+  .trust .head{position:sticky;top:92px}
+  .trust .items{border-top:1px solid var(--line)}
+  .trust .item{padding:24px 0;border-bottom:1px solid var(--line)}
+  .trust .item h3{font-size:1.06rem}
+  .trust .item p{margin-top:8px;font-size:.95rem}
+
+  /* ---------- close ---------- */
+  .close{text-align:center}
+  .close .ctas{justify-content:center;margin-top:30px}
+  .close .soon{margin-top:18px;font-size:.82rem;color:var(--faint)}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:26px 22px;color:var(--faint);font-size:.8rem;
+         display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
   footer a{color:var(--faint);text-decoration:none;transition:color .2s}
   footer a:hover{color:var(--muted)}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .g3{grid-template-columns:1fr}
+    .g2{grid-template-columns:1fr}
+    .trust .wrap{grid-template-columns:1fr;gap:0}
+    .trust .head{position:static}
+    .trust .items{margin-top:clamp(30px,5vw,44px)}
+  }
+  @media (max-width:640px){
+    .navlinks{display:none}
+    .topbar .wrap{height:58px}
+    .hero .ctas{flex-direction:column;align-items:stretch}
+    .hero .ctas .btn{justify-content:center}
+  }
+
+  /* ---------- motion ---------- */
   @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   .stage>*{animation:up .7s cubic-bezier(.16,1,.3,1) both}
   .stage>*:nth-child(2){animation-delay:.07s}
   .stage>*:nth-child(3){animation-delay:.14s}
   .stage>*:nth-child(4){animation-delay:.21s}
   .stage>*:nth-child(5){animation-delay:.28s}
-  @media (prefers-reduced-motion:reduce){.stage>*{animation:none}}
+  [data-reveal]{opacity:0;transform:translateY(14px);
+        transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .stage>*{animation:none}
+    [data-reveal]{opacity:1;transform:none;transition:none}
+    .card:hover,.btn:hover{transform:none}
+  }
 </style>
 </head>
 <body>
 
-<main>
-  <div class="stage">
-    <img class="wordmark" src="assets/wordmark.png" alt="Anchor">
-    <h1>Accountability for your phone.</h1>
-    <p class="sub">Block the apps that pull you in. Unlocking one takes your partner's approval, not your willpower.</p>
-    <a class="btn" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.3c0-.85.92-1.38 1.65-.95l14.5 8.7c.72.43.72 1.47 0 1.9l-14.5 8.7c-.73.43-1.65-.1-1.65-.95V3.3Z"/></svg>
-      Get it on Google Play
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="home" href="/" aria-label="Anchor home">
+      <img class="wordmark" src="assets/wordmark.png" alt="Anchor">
     </a>
-    <p class="soon">iPhone coming soon</p>
+    <nav class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#apps">The apps</a>
+      <a href="#trust">Our approach</a>
+    </nav>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus">Get Anchor</a>
   </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="stage">
+        <img class="wordmark" src="assets/wordmark.png" alt="Anchor">
+        <h1>A healthier relationship with your phone.</h1>
+        <p class="sub">Better habits do not come from willpower. They come from doing it with
+          someone. Anchor puts a person you trust on the other side of every unlock.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.3c0-.85.92-1.38 1.65-.95l14.5 8.7c.72.43.72 1.47 0 1.9l-14.5 8.7c-.73.43-1.65-.1-1.65-.95V3.3Z"/></svg>
+            Get it on Google Play
+          </a>
+          <a class="btn ghost" href="#how">See how it works</a>
+        </div>
+        <p class="soon">iPhone coming soon. Anchor Kids in development.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="rule"></div></div>
+
+  <!-- THE IDEA -->
+  <section id="idea">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <p class="eyebrow">Why it works</p>
+        <h2>What makes it stick is another person.</h2>
+        <p class="lede">Anchor is not about locking yourself down harder. It takes something you
+          have been meaning to sort out on your own and makes it a thing you and someone you trust
+          do together.</p>
+      </div>
+
+      <div class="grid g3">
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12.5c0 3.6-3.6 6.5-8 6.5a9.7 9.7 0 0 1-2.6-.35L5 20.5l1.2-3.1A6.4 6.4 0 0 1 4 12.5C4 8.9 7.6 6 12 6s8 2.9 8 6.5Z"/></svg></div>
+          <h3>Asking out loud</h3>
+          <p>One small moment of asking another person is enough to change what you do next. No
+            streaks to break, no shame, just a quick conversation.</p>
+        </div>
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="8" r="3.2"/><path d="M3.5 20c0-3.2 2.9-5.6 6.5-5.6 1 0 1.9.2 2.7.5"/><path d="M14.8 17.4 17 19.6l4.2-4.6"/></svg></div>
+          <h3>Someone you chose</h3>
+          <p>You pick who holds your unlocks, and you can change your mind any time. They are on
+            your side because you put them there.</p>
+        </div>
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 17.5 9.5 11.5l3.5 3.5L20.5 7"/><path d="M15.5 7h5v5"/></svg></div>
+          <h3>It gets easier</h3>
+          <p>Reaching for the app you blocked stops being automatic sooner than you would think.
+            The habit you build with someone tends to be the one that lasts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUR CIRCLE -->
+  <section id="circle">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <p class="eyebrow">Who's in it with you</p>
+        <h2>Accountability runs both ways.</h2>
+        <p class="lede">Anchor is not a parent app pointed at kids. It is the same idea at every
+          age, and it works best when nobody is doing it alone.</p>
+      </div>
+
+      <div class="grid g3">
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="8" r="3"/><circle cx="15.5" cy="8" r="3"/><path d="M3.5 19c0-2.6 2.2-4.5 5-4.5"/><path d="M20.5 19c0-2.6-2.2-4.5-5-4.5"/><path d="M9.6 19h4.8"/></svg></div>
+          <h3>Partners</h3>
+          <p>You and your spouse hold each other's unlocks. Nobody is the warden. The person who
+            can approve your unlock is the one sitting across the table from you.</p>
+        </div>
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="6.5" r="3.1"/><path d="M2.4 20c0-3.1 2.5-5.4 5.6-5.4s5.6 2.3 5.6 5.4"/><circle cx="17.6" cy="12.4" r="2.1"/><path d="M13.9 20c0-2.1 1.7-3.7 3.7-3.7s3.7 1.6 3.7 3.7"/></svg></div>
+          <h3>Parents and kids</h3>
+          <p>Kids learn their phone habits by watching yours. A simpler phone lands very
+            differently when the grown-ups' phones are anchored too.</p>
+        </div>
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.5" r="2.6"/><circle cx="5.5" cy="15" r="2.6"/><circle cx="18.5" cy="15" r="2.6"/><path d="M10.2 8.4 7.3 12.8"/><path d="M13.8 8.4l2.9 4.4"/><path d="M8.1 15.6h7.8"/></svg></div>
+          <h3>Friends</h3>
+          <p>Plenty of people would rather ask a friend than their spouse, and plenty do both.
+            Pair with one person or several. Whoever keeps you honest about the gym can keep you
+            honest about your phone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <p class="eyebrow">How it works</p>
+        <h2>Four steps, then it stays out of your way.</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step" data-reveal>
+          <div class="num" aria-hidden="true"></div>
+          <div>
+            <h3>Pick what is off limits</h3>
+            <p>Choose the apps that pull you in. Anchor clears them off your home screen and
+              blocks them everywhere else on the phone.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="num" aria-hidden="true"></div>
+          <div>
+            <h3>Pair with your person</h3>
+            <p>Share a code with your spouse, a parent, or a friend. One code is enough to link
+              you both, and you can be paired with more than one person.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="num" aria-hidden="true"></div>
+          <div>
+            <h3>Ask instead of cheat</h3>
+            <p>Open something blocked and you can send a request. They get a notification, they
+              approve or deny it, and it unlocks for as long as they said. Not a second longer.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="num" aria-hidden="true"></div>
+          <div>
+            <h3>They know it is still on</h3>
+            <p>Your people see that your blocking is set up and holding, plus every request you
+              send. If Anchor gets switched off or goes quiet, they are told. No self-reporting,
+              no taking your word for it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE APPS -->
+  <section id="apps">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <p class="eyebrow">Two apps, one idea</p>
+        <h2>Built for every age in the house.</h2>
+      </div>
+
+      <div class="grid g2">
+        <div class="card product" data-reveal>
+          <div class="chips">
+            <span class="chip live"><span class="dot"></span>Live on Google Play</span>
+            <span class="chip"><span class="dot"></span>iPhone coming soon</span>
+          </div>
+          <h3>Anchor</h3>
+          <p class="tag">The phone you stop fighting with.</p>
+          <ul>
+            <li>A home screen with only the apps you chose</li>
+            <li>Real blocking for everything else</li>
+            <li>Your partner approves the unlock requests</li>
+            <li>They see that your blocking is on and holding, not what you use</li>
+            <li>Going solo? Lock changes behind a PIN you store far away</li>
+          </ul>
+          <div class="foot">
+            <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.3c0-.85.92-1.38 1.65-.95l14.5 8.7c.72.43.72 1.47 0 1.9l-14.5 8.7c-.73.43-1.65-.1-1.65-.95V3.3Z"/></svg>
+              Get it on Google Play
+            </a>
+            <p class="note">Android is live today. The iPhone version is in private beta with a
+              small group of testers.</p>
+          </div>
+        </div>
+
+        <div class="card product" data-reveal>
+          <div class="chips">
+            <span class="chip"><span class="dot"></span>In development</span>
+          </div>
+          <h3>Anchor Kids</h3>
+          <p class="tag">A first phone that is just for connection.</p>
+          <ul>
+            <li>Only the contacts you approve</li>
+            <li>No open internet and no app store</li>
+            <li>Calls and texts you can see from a parent dashboard</li>
+            <li>SOS and 911 always one tap away</li>
+            <li>Runs on an Android phone you already have in a drawer</li>
+          </ul>
+          <div class="foot">
+            <a class="btn" href="mailto:support@anchorph.one?subject=Anchor%20Kids">
+              Tell me when it is ready
+            </a>
+            <p class="note">Not released yet. We are living on it with our own kids first, which
+              is the only test that really counts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section id="trust" class="trust">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <p class="eyebrow">Our approach</p>
+        <h2>Built on trust, not control.</h2>
+        <p class="lede">Anchor only works if you would happily hand it to someone you trust. That
+          rules a few things out on purpose.</p>
+      </div>
+
+      <div class="items">
+        <div class="item" data-reveal>
+          <h3>Deleting Anchor always works</h3>
+          <p>Uninstall is never blocked. It stays an emergency exit, always. Your partner simply
+            gets told, which is the entire point.</p>
+        </div>
+        <div class="item" data-reveal>
+          <h3>Detection over prevention</h3>
+          <p>We would rather tell the truth about what happened than pretend a phone can be a
+            cage. Anyone determined enough can get around any blocker. Honesty is the feature.</p>
+        </div>
+        <div class="item" data-reveal>
+          <h3>Status, not surveillance</h3>
+          <p>Your partner sees that your protection is on and the requests you choose to send.
+            They do not see which apps you use, for how long, or what you browse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <h2>Start with your own phone.</h2>
+        <p class="lede">Put Anchor on, hand your code to someone who will actually use it, and
+          see how different next week feels.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.anchorapp.focus">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.3c0-.85.92-1.38 1.65-.95l14.5 8.7c.72.43.72 1.47 0 1.9l-14.5 8.7c-.73.43-1.65-.1-1.65-.95V3.3Z"/></svg>
+            Get it on Google Play
+          </a>
+        </div>
+        <p class="soon">Android today. iPhone coming soon. Anchor Kids in development.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -79,6 +457,33 @@
   <a href="https://github.com/hrweaver/anchor-legal/blob/main/SUPPORT.md">Support</a>
   <a href="mailto:support@anchorph.one">support@anchorph.one</a>
 </footer>
+
+<script>
+  (function(){
+    var bar = document.getElementById('topbar');
+    var onScroll = function(){ bar.classList.toggle('stuck', window.scrollY > 8); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('[data-reveal]');
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        var sibs = Array.prototype.slice.call(el.parentNode.children).indexOf(el);
+        el.style.transitionDelay = Math.min(sibs, 4) * 70 + 'ms';
+        el.classList.add('in');
+        io.unobserve(el);
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:0.12});
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
 
 </body>
 </html>

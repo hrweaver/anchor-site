@@ -1,8 +1,11 @@
 # anchorph.one — Anchor marketing site
 
-The public site for **Anchor Focus** (the adult accountability app). A lightweight, dark,
-single-screen splash plus the hosted legal pages. This repo *is* the site — what's on `main`
-is what's live.
+The **umbrella brand site for Anchor**: the accountability idea, who you can be accountable to
+(partners, parents and kids, friends), and both products. Dark, static, one scrolling page plus
+the hosted legal pages. This repo *is* the site — what's on `main` is what's live.
+
+It is *not* the kids parent dashboard. That's the separate Next.js app at
+`~/anchor_kids_parent/web` (marketing + auth + dashboard, not currently deployed).
 
 ## Hosting & deploy
 
@@ -20,7 +23,7 @@ is what's live.
 ## Layout
 
 ```
-index.html          splash page (dark, coming-soon style, "Get it on Google Play")
+index.html          the whole marketing page (see "Page + copy rules" below)
 privacy/index.html  Privacy Policy   → https://anchorph.one/privacy
 terms/index.html    Terms of Service → https://anchorph.one/terms
 build-legal.js      regenerates the two legal pages from ~/anchor-legal (see below)
@@ -65,9 +68,31 @@ So hosting on `anchorph.one` is **additive, not a replacement**. Rules:
   Information → Privacy Policy URL). The in-app links change only in a **future app build**.
 - Keep GitHub as a permanent mirror regardless.
 
-## Notes
+## Page + copy rules
 
-- The splash intentionally reads "coming-soon"/minimal: no spinning-anchor video, one calm CTA,
-  soft glow, gentle fade-in. It's honest — Android is live on Play, iPhone is "coming soon."
+Sections, in order: hero → why it works → **who's in it with you** (partners / parents and kids /
+friends) → four-step how-it-works → the two apps → built on trust, not control → close → footer.
+All hand-written HTML/CSS in `index.html`, inline SVG icons, no framework and no build step.
+
+Four rules to keep when editing:
+
+1. **Only claim what ships.** Anchor Android is live on Play; iPhone is TestFlight-only, so it is
+   always "coming soon", never "on the App Store". Anchor Kids is "in development" with a
+   `mailto:` notify link, not a signup. Don't print a price — the $9.99/mo family plan has no
+   billing built yet.
+2. **What a partner can see is a legal claim.** As of PRIVACY.md v1.8 (July 2026) partners see
+   *setup status* ("your protection is on and holding") and *the requests you send*. They no
+   longer see app usage, screen time, or blocked-app attempts. Re-read `~/anchor-legal/PRIVACY.md`
+   before writing anything about partner visibility.
+3. **Keep the tone positive and non-creepy.** Reviewed line by line 2026-07-27, so don't
+   reintroduce: surveillance words (someone "notices" / watches you), late-night temptation
+   framing (11pm, midnight, 1am — that register reads like purity accountability, not phone
+   habits), "you are bad at this" framing, treating friends as the fallback for people without a
+   spouse, or "someone you love" where "someone you trust" covers more people. Say what the
+   product gives you, not how you keep failing.
+4. **No em dashes in the copy.** House style.
+
+The `:root` custom properties here are deliberately the same set `build-legal.js` uses, so the
+page and the legal pages stay one visual system. Change them in both places or neither.
 - ⚠️ **Work from a stable clone of this repo** (e.g. `~/anchor-site`), not a temp/scratch copy —
   a scratch working copy corrupted its git objects and lost its `origin` remote mid-session.
