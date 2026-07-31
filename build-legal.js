@@ -105,6 +105,10 @@ ${bodyHtml}
 const docs = [
   { src: 'PRIVACY.md', out: 'privacy', title: 'Privacy Policy' },
   { src: 'TERMS.md', out: 'terms', title: 'Terms of Service' },
+  // Anchor Kids has its OWN policy — the adult one above disclaims collecting data from
+  // under-18s, which directly contradicts the kids apps. This is the URL submitted to Play
+  // for com.anchorapp.kids and com.anchorapp.kidsmanager.
+  { src: 'KIDS_PRIVACY.md', out: 'kids-privacy', title: 'Anchor Kids Privacy Policy' },
 ];
 for (const d of docs) {
   const mdSrc = fs.readFileSync(path.join(LEGAL, d.src), 'utf8');
