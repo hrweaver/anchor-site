@@ -26,7 +26,7 @@ const md = new MarkdownIt({ html: false, linkify: true, typographer: false });
 const LEGAL = path.join(os.homedir(), 'anchor-legal');
 const SITE = __dirname;
 
-const page = (title, bodyHtml) => `<!doctype html>
+const page = (title, bodyHtml, analytics = true) => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -98,9 +98,12 @@ ${bodyHtml}
   <a href="https://github.com/hrweaver/anchor-legal/blob/main/SUPPORT.md">Support</a>
   <a href="mailto:support@anchorph.one">support@anchorph.one</a>
 </footer>
-</body>
+${analytics ? ANALYTICS : ''}</body>
 </html>
 `;
+
+// Cookieless pageview beacon. Omitted from the kids policy on purpose (see below).
+const ANALYTICS = `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "4c4a9b1961654700a74a862cc3b00bfd"}'></script>`;
 
 const docs = [
   { src: 'PRIVACY.md', out: 'privacy', title: 'Privacy Policy' },
@@ -108,11 +111,11 @@ const docs = [
   // Anchor Kids has its OWN policy — the adult one above disclaims collecting data from
   // under-18s, which directly contradicts the kids apps. This is the URL submitted to Play
   // for com.anchorapp.kids and com.anchorapp.kidsmanager.
-  { src: 'KIDS_PRIVACY.md', out: 'kids-privacy', title: 'Anchor Kids Privacy Policy' },
+  { src: 'KIDS_PRIVACY.md', out: 'kids-privacy', title: 'Anchor Kids Privacy Policy', analytics: false },
 ];
 for (const d of docs) {
   const mdSrc = fs.readFileSync(path.join(LEGAL, d.src), 'utf8');
-  const html = page(d.title, md.render(mdSrc));
+  const html = page(d.title, md.render(mdSrc), d.analytics !== false);
   const dir = path.join(SITE, d.out);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
