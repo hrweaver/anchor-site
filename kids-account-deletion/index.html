@@ -1,39 +1,11 @@
-#!/usr/bin/env node
-/**
- * Regenerate the branded /privacy and /terms pages on anchorph.one from the CANONICAL
- * legal docs in ~/anchor-legal (PRIVACY.md / TERMS.md). anchor-legal stays the source of
- * truth — edit the markdown there, then re-run this to refresh the site pages.
- *
- *   node build-legal.js
- *
- * Uses markdown-it (found in the anchor functions deps) for a verbatim md -> html render:
- * no smart-quote/typographer rewriting, so the legal text is unchanged.
- */
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
-
-// find markdown-it without adding a dependency to this static repo
-const MD_CANDIDATES = [
-  path.join(os.homedir(), 'anchor/functions/node_modules/markdown-it'),
-  'markdown-it',
-];
-let MarkdownIt;
-for (const c of MD_CANDIDATES) { try { MarkdownIt = require(c); break; } catch (_) {} }
-if (!MarkdownIt) { console.error('markdown-it not found; npm i markdown-it or run from a repo that has it'); process.exit(1); }
-
-const md = new MarkdownIt({ html: false, linkify: true, typographer: false });
-const LEGAL = path.join(os.homedir(), 'anchor-legal');
-const SITE = __dirname;
-
-const page = (title, bodyHtml, analytics = true) => `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} · Anchor</title>
+<title>Delete your Anchor Kids account · Anchor</title>
 <meta name="robots" content="all">
-<meta name="description" content="${title} for Anchor by Anchor Digital LLC.">
+<meta name="description" content="Delete your Anchor Kids account for Anchor by Anchor Digital LLC.">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -89,7 +61,51 @@ const page = (title, bodyHtml, analytics = true) => `<!doctype html>
 <body>
 <header class="topbar"><a href="/" class="home"><img class="wordmark" src="/assets/wordmark.png" alt="Anchor"></a></header>
 <main class="doc">
-${bodyHtml}
+<h1>Deleting your Anchor Kids account and data</h1>
+<p><strong>Apps:</strong> Anchor Kids (<code>com.anchorapp.kids</code>) and Anchor Kids for Parents (<code>com.anchorapp.kidsmanager</code>)
+<strong>Developer:</strong> Anchor Digital LLC</p>
+<p>There are two things you may want to delete: a single child's profile, or your whole account.
+The first you can do yourself in the app. The second we do for you on request.</p>
+<h2>Delete a child's profile</h2>
+<p>You can do this yourself at any time.</p>
+<ol>
+<li>Open <strong>Anchor Kids for Parents</strong> and sign in.</li>
+<li>Tap the child you want to remove.</li>
+<li>Scroll to <strong>Remove this profile</strong>.</li>
+<li>Type the child's name to confirm.</li>
+</ol>
+<p>This permanently deletes that child's profile and everything stored under it: their approved
+contacts, call history, message records, contact requests, alerts, unlock requests and PIN
+attempt records. It cannot be undone.</p>
+<p>Removing the profile does not wipe the child's phone. To return the phone to normal, uninstall
+Anchor Kids from it through Android Settings.</p>
+<h2>Delete your whole account</h2>
+<p>The app does not yet have a self-serve account deletion button. To delete your account, email
+<strong>support@anchorph.one</strong> from the address your account uses, with the subject
+<strong>&quot;Delete my Anchor Kids account&quot;</strong>.</p>
+<p>We delete the account and its data within 30 days and reply to confirm.</p>
+<h2>What gets deleted</h2>
+<ul>
+<li>Your account and sign in</li>
+<li>Your name and email address</li>
+<li>Every child profile in your family, and everything under them: contacts, call history,
+message records, contact requests, alerts, location, device status and tamper records</li>
+<li>Your family and its membership records</li>
+<li>Any pairing codes or family invites you created</li>
+</ul>
+<h2>What is kept, and for how long</h2>
+<ul>
+<li><strong>Crash reports</strong> are held for up to <strong>90 days</strong>, then deleted. They are not linked to your
+name or email.</li>
+<li><strong>Backups and logs</strong> containing personal data are purged within <strong>30 days</strong> of deletion.</li>
+</ul>
+<h2>What never left the phone in the first place</h2>
+<p>The text of your child's messages and their call log are read on their device to display them
+in the Anchor Kids app. They are never uploaded, so there is nothing on our side to delete.
+They go when the app is uninstalled from the phone.</p>
+<p>For what we collect and why, see the
+<a href="https://anchorph.one/kids-privacy">Anchor Kids Privacy Policy</a>.</p>
+
 </main>
 <footer>
   <span>&copy; 2026 ANCHOR DIGITAL LLC</span>
@@ -98,29 +114,5 @@ ${bodyHtml}
   <a href="https://github.com/hrweaver/anchor-legal/blob/main/SUPPORT.md">Support</a>
   <a href="mailto:support@anchorph.one">support@anchorph.one</a>
 </footer>
-${analytics ? ANALYTICS : ''}</body>
+</body>
 </html>
-`;
-
-// Cookieless pageview beacon. Omitted from the kids policy on purpose (see below).
-const ANALYTICS = `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "4c4a9b1961654700a74a862cc3b00bfd"}'></script>`;
-
-const docs = [
-  { src: 'PRIVACY.md', out: 'privacy', title: 'Privacy Policy' },
-  { src: 'TERMS.md', out: 'terms', title: 'Terms of Service' },
-  // Anchor Kids has its OWN policy — the adult one above disclaims collecting data from
-  // under-18s, which directly contradicts the kids apps. This is the URL submitted to Play
-  // for com.anchorapp.kids and com.anchorapp.kidsmanager.
-  { src: 'KIDS_PRIVACY.md', out: 'kids-privacy', title: 'Anchor Kids Privacy Policy', analytics: false },
-  // Play requires a reachable account-deletion URL for any app that allows account creation.
-  // ACCOUNT_DELETION.md is the adult app's and is deliberately NOT built here.
-  { src: 'KIDS_ACCOUNT_DELETION.md', out: 'kids-account-deletion', title: 'Delete your Anchor Kids account', analytics: false },
-];
-for (const d of docs) {
-  const mdSrc = fs.readFileSync(path.join(LEGAL, d.src), 'utf8');
-  const html = page(d.title, md.render(mdSrc), d.analytics !== false);
-  const dir = path.join(SITE, d.out);
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'index.html'), html);
-  console.log(`wrote ${d.out}/index.html  (from anchor-legal/${d.src})`);
-}
