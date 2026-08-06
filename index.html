@@ -108,6 +108,19 @@
   .hero .soon{margin:20px 0 0;font-size:.82rem;color:var(--faint)}
   .soon a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid rgba(169,181,246,.35)}
   .soon a:hover{border-bottom-color:var(--accent-ink)}
+  .kidsline{display:flex;align-items:center;gap:18px;align-self:stretch;
+            margin:26px 0 0;padding:14px 20px;border:1px solid var(--line);
+            border-radius:14px;background:rgba(18,20,28,.55);text-align:left}
+  .kidsline img{height:24px;width:auto;flex:none}
+  .head .kidsmark{height:28px;width:auto;display:block;margin:0 0 16px}
+  .kidsline p{margin:0;font-size:.85rem;line-height:1.5;color:var(--faint)}
+  .kidsline a{color:var(--accent-ink);text-decoration:none;white-space:nowrap;
+              border-bottom:1px solid rgba(169,181,246,.35)}
+  .kidsline a:hover{border-bottom-color:var(--accent-ink)}
+  @media (max-width:560px){
+    .kidsline{flex-direction:column;gap:10px;text-align:center}
+    .kidsline p{text-align:center}
+  }
 
   /* ---------- grids ---------- */
   .grid{display:grid;gap:16px;margin-top:clamp(34px,5vw,52px)}
@@ -243,7 +256,12 @@
             Download on the App Store
           </a>
         </div>
-        <p class="soon">Anchor Kids is in development. <a href="/pilot/">Join the pilot</a> if you have a kid and a spare Android.</p>
+        <div class="kidsline" data-reveal>
+          <img src="assets/kids-wordmark.png" alt="Anchor Kids">
+          <p>A first phone that only calls and texts, in development now.
+            <a href="#kidsvideo">Watch the walkthrough</a>
+            or <a href="/pilot/">join the pilot</a>.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -414,10 +432,35 @@
             <a class="btn primary" href="/pilot/">
               Join the pilot
             </a>
+            <a class="btn" href="#kidsvideo">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg>
+              Watch the walkthrough
+            </a>
             <p class="note">Not released yet. We are living on it with our own kids first, which
               is the only test that really counts.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCHOR KIDS WALKTHROUGH -->
+  <section id="kidsvideo">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <img class="kidsmark" src="assets/kids-wordmark.png" alt="Anchor Kids">
+        <h2>See it from both phones.</h2>
+        <p class="lede">A first phone that only calls and texts. What your kid sees, and what you
+          set up from your own phone. Still in development, and the pilot is open.</p>
+      </div>
+      <div class="videoframe" data-reveal>
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/Fyw6JSkWATY?rel=0"
+          title="Anchor Kids walkthrough, the kid's phone and the parent app"
+          loading="lazy"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
       </div>
     </div>
   </section>
