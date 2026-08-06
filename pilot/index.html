@@ -259,6 +259,13 @@
         </div>
 
         <div class="field">
+          <label for="phone">Phone number <span class="req">*</span></label>
+          <p class="hint">Setting up a phone is easier over a call than over email. We will not
+            use this for anything else.</p>
+          <input id="phone" type="tel" autocomplete="tel" placeholder="(555) 123 4567" required>
+        </div>
+
+        <div class="field">
           <label for="state">Which state are you in? <span class="req">*</span></label>
           <p class="hint">The phone plan we use is United States only at the moment.</p>
           <input id="state" type="text" autocomplete="address-level1" required>
@@ -354,11 +361,15 @@
     e.preventDefault();
     err.className = 'msg';
     const name = $('name').value.trim(), email = $('email').value.trim();
+    const phone = $('phone').value.trim();
     const state = $('state').value.trim(), age = parseInt($('age').value, 10);
     // Checked here as well as in the rules: a rules rejection surfaces as an opaque
     // permission error, which tells the person nothing about what to fix.
     if (!name) return fail('Please add your name.');
     if (!/.+@.+\..+/.test(email)) return fail('That email does not look right.');
+    // The rules floor is 10 characters, so count digits and reject before Firestore does.
+    if ((phone.match(/\d/g) || []).length < 10) return fail('Please add a phone number we can reach you on.');
+    if (phone.length > 28) return fail('That phone number looks too long.');
     if (!state) return fail('Please add your state.');
     if (!radio('android')) return fail('Let us know about the spare Android phone.');
     if (!radio('tello')) return fail('Let us know about the phone plan.');
@@ -370,7 +381,7 @@
     try {
       await signInAnonymously(auth);
       await addDoc(collection(db, 'pilotSignups'), {
-        name, email, state,
+        name, email, phone, state,
         hasAndroid: radio('android'),
         androidModel: $('model').value.trim(),
         okWithTello: radio('tello'),
