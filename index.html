@@ -18,8 +18,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://anchorph.one/assets/og-image.png">
 <meta name="theme-color" content="#0A0B10">
+<!-- Google skips favicons that are not a square multiple of 48px, which is why 32 and 64 alone
+     produced the grey globe in search results. 96 and 192 are the ones it will actually use, and
+     /favicon.ico is a separate crawl target Google looks for at the root regardless of these tags. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
