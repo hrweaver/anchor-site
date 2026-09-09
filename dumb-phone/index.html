@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anchor Dumb Phone · A dumb phone, on the phone you already own</title>
+<meta name="description" content="Turn the Android you own into a dumb phone. Your tools on the home screen, nothing to scroll, and a wait before anything comes back. No partner, no account, one purchase.">
+<meta property="og:title" content="Anchor Dumb Phone · A dumb phone, on the phone you already own">
+<meta property="og:description" content="Your tools on the home screen, nothing to scroll, and a wait before anything comes back. No partner, no account, one purchase.">
+<meta property="og:url" content="https://anchorph.one/dumb-phone/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://anchorph.one/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Anchor">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://anchorph.one/assets/og-image.png">
+<meta name="theme-color" content="#0A0B10">
+<!-- Draft: not linked from the home page yet. Drop this line to let search engines index it. -->
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="96x96" href="../assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0B10; --ink:#EDEFF7; --muted:#B7BCD0; --faint:#7A8298;
+    --accent:#7C8FE8; --accent-ink:#A9B5F6; --line:#23273A; --panel:#12141C;
+    --font-d:"Bricolage Grotesque",system-ui,sans-serif;
+    --font-b:"Spline Sans",system-ui,sans-serif;
+    --wrap:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--muted);font-family:var(--font-b);
+       line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  /* ---------- shared (same system as index.html) ---------- */
+  .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 22px}
+  section{padding:clamp(64px,9vw,116px) 0;position:relative}
+  .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
+           color:var(--accent-ink);margin:0 0 14px}
+  h1,h2,h3{font-family:var(--font-d);color:var(--ink);letter-spacing:-.02em;
+           line-height:1.1;margin:0;text-wrap:balance}
+  h2{font-weight:600;font-size:clamp(1.7rem,4vw,2.6rem)}
+  h3{font-weight:600;font-size:1.16rem;letter-spacing:-.01em;line-height:1.3}
+  p{margin:0}
+  .lede{font-size:clamp(1rem,1.7vw,1.12rem);margin-top:18px;max-width:56ch;color:var(--muted)}
+  .head{max-width:640px}
+  .head.center{margin:0 auto;text-align:center}
+  .head.center .lede{margin-left:auto;margin-right:auto}
+  .rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;
+       border:1px solid var(--line);border-radius:13px;padding:13px 22px;
+       background:rgba(255,255,255,.03);color:var(--ink);
+       font-family:var(--font-b);font-weight:500;font-size:.98rem;text-decoration:none;
+       transition:border-color .2s,background .2s,transform .2s}
+  .btn:hover{border-color:var(--accent);background:rgba(124,143,232,.08);transform:translateY(-1px)}
+  .btn svg{width:16px;height:16px;fill:var(--accent);flex:none}
+  .btn.primary{border-color:rgba(124,143,232,.42);background:rgba(124,143,232,.12)}
+  .btn.primary:hover{background:rgba(124,143,232,.2)}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+  .chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);
+        border-radius:999px;padding:5px 12px;font-size:.74rem;font-weight:500;
+        letter-spacing:.02em;color:var(--muted);white-space:nowrap}
+  .chip.live{border-color:rgba(124,143,232,.4);color:var(--accent-ink)}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--faint);flex:none}
+  .chip.live .dot{background:var(--accent)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;
+        padding:clamp(22px,2.6vw,30px);transition:border-color .25s,transform .25s}
+  .card:hover{border-color:#2E3350;transform:translateY(-2px)}
+  .icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;
+        justify-content:center;background:rgba(124,143,232,.1);
+        border:1px solid rgba(124,143,232,.18);margin-bottom:18px}
+  .icon svg{width:20px;height:20px;stroke:var(--accent-ink);fill:none;
+            stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .card p{margin-top:10px;font-size:.96rem}
+
+  /* ---------- topbar ---------- */
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(10,11,16,.82);
+          backdrop-filter:blur(10px);border-bottom:1px solid transparent;
+          transition:border-color .25s}
+  .topbar.stuck{border-bottom-color:var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:18px;height:62px}
+  .topbar .home{display:flex;align-items:center;margin-right:auto;gap:12px;text-decoration:none}
+  .topbar .wordmark{height:23px;display:block}
+  .topbar .sub{font-family:var(--font-d);font-weight:600;font-size:.95rem;color:var(--ink);
+               padding-left:12px;border-left:1px solid var(--line);line-height:1}
+  .navlinks{display:flex;gap:22px}
+  .navlinks a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
+  .navlinks a:hover{color:var(--ink)}
+  .topbar .btn{padding:9px 14px;font-size:.88rem;border-radius:11px;gap:7px}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(56px,9vw,96px);padding-bottom:clamp(40px,6vw,72px);overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+        background:radial-gradient(1100px 620px at 50% -60px,rgba(124,143,232,.17),transparent 72%)}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+        gap:clamp(28px,5vw,64px);align-items:center}
+  .hero h1{font-weight:600;font-size:clamp(2.05rem,5.2vw,3.4rem);margin:18px 0 0;max-width:15ch}
+  .hero .sub{color:var(--muted);font-size:clamp(1rem,2vw,1.16rem);line-height:1.55;
+             margin:20px 0 0;max-width:44ch}
+  .hero .ctas{margin-top:clamp(26px,4vw,34px)}
+  .hero .soon{margin:18px 0 0;font-size:.82rem;color:var(--faint);max-width:48ch}
+  .soon a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid rgba(169,181,246,.35)}
+  .soon a:hover{border-bottom-color:var(--accent-ink)}
+  .stage>*{animation:up .7s cubic-bezier(.16,1,.3,1) both}
+  .stage>*:nth-child(2){animation-delay:.07s}
+  .stage>*:nth-child(3){animation-delay:.14s}
+  .stage>*:nth-child(4){animation-delay:.21s}
+  .stage>*:nth-child(5){animation-delay:.28s}
+
+  /* ---------- phone frames ---------- */
+  .phones{display:flex;justify-content:center;gap:18px;align-items:flex-end}
+  .phone{width:min(46%,230px);border-radius:26px;border:1px solid var(--line);
+         background:#000;padding:8px;box-shadow:0 30px 80px rgba(0,0,0,.55),
+         0 0 0 1px rgba(124,143,232,.08)}
+  .phone img{display:block;width:100%;height:auto;border-radius:19px}
+  .phone.back{transform:translateY(26px) scale(.94);opacity:.85}
+  .shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;
+         margin-top:clamp(34px,5vw,52px);align-items:start}
+  .shots .phone{width:100%}
+  .shots figcaption{margin-top:12px;font-size:.88rem;color:var(--faint);text-align:center}
+  figure{margin:0}
+
+  /* ---------- grids / steps ---------- */
+  .grid{display:grid;gap:16px;margin-top:clamp(34px,5vw,52px)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr);gap:18px}
+  .steps{counter-reset:s;display:grid;gap:2px;margin-top:clamp(34px,5vw,52px);
+         border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--line)}
+  .step{background:var(--panel);padding:clamp(20px,2.6vw,28px);display:flex;gap:18px;
+        align-items:flex-start;transition:background .25s}
+  .step:hover{background:#161925}
+  .step .num{counter-increment:s;font-family:var(--font-d);font-weight:700;font-size:.82rem;
+             color:var(--accent-ink);border:1px solid rgba(124,143,232,.28);
+             background:rgba(124,143,232,.08);border-radius:9px;
+             width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center}
+  .step .num::before{content:counter(s)}
+  .step p{margin-top:7px;font-size:.96rem;max-width:62ch}
+
+  /* ---------- the wait ---------- */
+  .wait{background:radial-gradient(80% 60% at 50% 0%,rgba(124,143,232,.07),transparent 70%)}
+  .wait .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.7fr);
+        gap:clamp(28px,5vw,72px);align-items:center}
+  .wait .items{border-top:1px solid var(--line);margin-top:clamp(26px,4vw,36px)}
+  .wait .item{padding:20px 0;border-bottom:1px solid var(--line)}
+  .wait .item h3{font-size:1.04rem}
+  .wait .item p{margin-top:6px;font-size:.95rem}
+  .wait .phone{margin:0 auto;width:min(100%,250px)}
+
+  /* ---------- tools list ---------- */
+  .tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .tools span{border:1px solid var(--line);border-radius:999px;padding:6px 13px;
+              font-size:.86rem;color:var(--muted);background:rgba(255,255,255,.02)}
+  .tools span.no{color:var(--faint);text-decoration:line-through;text-decoration-color:rgba(124,143,232,.6)}
+
+  /* ---------- pricing ---------- */
+  .price{font-family:var(--font-d);font-weight:700;font-size:2.2rem;color:var(--ink);
+         letter-spacing:-.02em;margin-top:12px;line-height:1.1}
+  .price span{font-family:var(--font-b);font-weight:400;font-size:.92rem;
+              color:var(--faint);letter-spacing:0}
+  .product ul{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:11px}
+  .product li{position:relative;padding-left:24px;font-size:.94rem;line-height:1.5}
+  .product li::before{content:"";position:absolute;left:6px;top:.62em;width:5px;height:5px;
+        border-radius:50%;background:var(--accent);opacity:.7}
+  .product .note{margin-top:16px;font-size:.82rem;color:var(--faint);max-width:44ch}
+
+  /* ---------- faq ---------- */
+  .faq{display:grid;gap:2px;margin-top:clamp(34px,5vw,52px);border:1px solid var(--line);
+       border-radius:18px;overflow:hidden;background:var(--line)}
+  .faq details{background:var(--panel)}
+  .faq summary{cursor:pointer;list-style:none;padding:20px clamp(20px,2.6vw,28px);
+               font-family:var(--font-d);font-weight:600;color:var(--ink);font-size:1.02rem;
+               display:flex;justify-content:space-between;gap:16px;align-items:center}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--accent-ink);font-weight:400;font-size:1.3rem;flex:none}
+  .faq details[open] summary::after{content:"\2212"}
+  .faq .a{padding:0 clamp(20px,2.6vw,28px) 22px;font-size:.95rem;max-width:70ch}
+
+  /* ---------- close ---------- */
+  .close{text-align:center}
+  .close .ctas{justify-content:center;margin-top:clamp(26px,4vw,34px)}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:26px 22px;color:var(--faint);font-size:.8rem;
+         display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  footer a{color:var(--faint);text-decoration:none;transition:color .2s}
+  footer a:hover{color:var(--muted)}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr}
+    .hero .phones{margin-top:34px}
+    .g3{grid-template-columns:1fr}
+    .g2{grid-template-columns:1fr}
+    .shots{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .wait .wrap{grid-template-columns:1fr}
+    .wait .phone{margin-top:30px}
+  }
+  @media (max-width:640px){
+    .navlinks{display:none}
+    .topbar .wrap{height:58px}
+    .topbar .sub{display:none}
+    .hero .ctas{flex-direction:column;align-items:stretch}
+    .hero .ctas .btn{justify-content:center}
+    .shots{grid-template-columns:1fr;max-width:260px;margin-left:auto;margin-right:auto}
+  }
+
+  /* ---------- motion ---------- */
+  @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  [data-reveal]{opacity:0;transform:translateY(14px);
+        transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .stage>*{animation:none}
+    [data-reveal]{opacity:1;transform:none;transition:none}
+    .card:hover,.btn:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="home" href="/" aria-label="Anchor home">
+      <img class="wordmark" src="../assets/wordmark.png" alt="Anchor">
+      <span class="sub">Dumb Phone</span>
+    </a>
+    <nav class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#wait">Changing your mind</a>
+      <a href="#price">Price</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <!-- Swap the mailto for the Play link once the listing is public:
+         https://play.google.com/store/apps/details?id=com.anchorapp.dumbphone&referrer=utm_source%3Danchorph.one%26utm_medium%3Dwebsite%26utm_campaign%3Dnav -->
+    <a class="btn" href="mailto:support@anchorph.one?subject=Anchor%20Dumb%20Phone%3A%20tell%20me%20when%20it%20is%20live">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.3c0-.85.92-1.38 1.65-.95l14.5 8.7c.72.43.72 1.47 0 1.9l-14.5 8.7c-.73.43-1.65-.1-1.65-.95V3.3Z"/></svg>
+      Android
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="stage">
+        <span class="chip"><span class="dot"></span>Android · In review on Google Play</span>
+        <h1>A dumb phone, on the phone you already own.</h1>
+        <p class="sub">A handful of tools on the home screen and nothing else to scroll. You
+          keep your device, your number, and the apps you actually rely on. No second person
+          to set it up, no account, no subscription.</p>
+        <div class="ctas">
+          <!-- Swap for the Play link once the listing is public (see the topbar comment). -->
+          <a class="btn primary" href="mailto:support@anchorph.one?subject=Anchor%20Dumb%20Phone%3A%20tell%20me%20when%20it%20is%20live">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.3c0-.85.92-1.38 1.65-.95l14.5 8.7c.72.43.72 1.47 0 1.9l-14.5 8.7c-.73.43-1.65-.1-1.65-.95V3.3Z"/></svg>
+            Tell me when it is on Google Play
+          </a>
+          <a class="btn" href="#how">See how it works</a>
+        </div>
+        <p class="soon">Three days to live with it before you pay. Then one purchase, not a
+          subscription. Android only. For adults setting limits on their own phone, not a
+          parental control.</p>
+      </div>
+      <div class="phones" aria-hidden="true">
+        <div class="phone"><img src="../assets/dumb-phone/09-home.png" alt="" width="540" height="1080"></div>
+        <div class="phone back"><img src="../assets/dumb-phone/11-wait.png" alt="" width="540" height="1080"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- WHAT IT IS -->
+  <section id="what">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <p class="eyebrow">What it is</p>
+        <h2>The dumb phone idea, without buying a second phone.</h2>
+        <p class="lede">The phones built for this cost real money and make you carry two devices
+          or give up the apps you need. Anchor Dumb Phone does the same job on the Android you
+          have: your tools stay, everything else stays installed and stays closed.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M16.5 14.5v5M14 17h5"/></svg></div>
+          <h3>Your tools, and only those</h3>
+          <p>Phone, Messages, Maps, Camera, Music and the rest of the set a dumb phone ships with,
+            plus up to three apps of your own. They are the home screen. There is no app drawer
+            behind it.</p>
+        </div>
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h10"/><path d="M17 16l2.5 2.5L22 16"/></svg></div>
+          <h3>Nothing to scroll</h3>
+          <p>Apps that are not tools stay closed. Open one and you are sent back home.
+            Notifications from them are cleared before they buzz.</p>
+        </div>
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></svg></div>
+          <h3>No browser, ever</h3>
+          <p>A browser is never offered as a tool. One browser makes every other choice
+            cosmetic, and that is most of what makes a dumb phone work.</p>
+        </div>
+      </div>
+      <div class="tools" data-reveal aria-label="The tool set">
+        <span>Phone</span><span>Messages</span><span>Camera</span><span>Photos</span><span>Maps</span>
+        <span>Music</span><span>Podcasts</span><span>Notes</span><span>Calendar</span><span>Clock</span>
+        <span>Calculator</span><span>Weather</span><span>Authenticator</span><span>Payments</span>
+        <span>Rides</span><span>Three of your own</span><span class="no">Browser</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <p class="eyebrow">How it works</p>
+        <h2>Ten minutes of setup, then it stays out of your way.</h2>
+      </div>
+      <div class="steps">
+        <div class="step" data-reveal>
+          <div class="num" aria-hidden="true"></div>
+          <div>
+            <h3>Pick your tools</h3>
+            <p>Tick the roles you want on the home screen and choose which installed app fills
+              each one. Skip anything you do not use.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="num" aria-hidden="true"></div>
+          <div>
+            <h3>Choose your wait</h3>
+            <p>One, three, six or twelve hours. This is what turning it off, or adding a tool
+              later, will cost you. Choose a wait you would respect on a bad day.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="num" aria-hidden="true"></div>
+          <div>
+            <h3>Quiet the rest</h3>
+            <p>Notifications from anything that is not a tool are cleared before they reach
+              you. Calls, alarms and emergency alerts always come through.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="num" aria-hidden="true"></div>
+          <div>
+            <h3>Turn it on and live with it</h3>
+            <p>You turn on app blocking yourself in Android's settings, after a plain
+              explanation of what it does. Then the home screen is just your tools.</p>
+          </div>
+        </div>
+      </div>
+      <div class="shots">
+        <figure data-reveal>
+          <div class="phone"><img src="../assets/dumb-phone/02-tools.png" alt="The tools step: a list of roles with the app chosen for each" width="540" height="1080" loading="lazy"></div>
+          <figcaption>Pick your tools</figcaption>
+        </figure>
+        <figure data-reveal>
+          <div class="phone"><img src="../assets/dumb-phone/03-changing-your-mind.png" alt="The wait step: one, three, six or twelve hours" width="540" height="1080" loading="lazy"></div>
+          <figcaption>Choose your wait</figcaption>
+        </figure>
+        <figure data-reveal>
+          <div class="phone"><img src="../assets/dumb-phone/09-home.png" alt="The home screen: a short list of tools and nothing else" width="540" height="1080" loading="lazy"></div>
+          <figcaption>The home screen</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE WAIT -->
+  <section id="wait" class="wait">
+    <div class="wrap">
+      <div>
+        <div class="head" data-reveal>
+          <p class="eyebrow">Changing your mind</p>
+          <h2>Turning it off is allowed. It just takes a while.</h2>
+          <p class="lede">A dumb phone works because getting the old phone back is a decision,
+            not a reflex. Anchor Dumb Phone makes it a wait: a screen that counts down only
+            while it stays open.</p>
+        </div>
+        <div class="items">
+          <div class="item" data-reveal>
+            <h3>It counts down only while you watch it</h3>
+            <p>Set the phone down and let it run. Open anything else and it pauses. Away for
+              more than two minutes and the change is dropped; start it again when you are
+              ready. Calls do not count against you.</p>
+          </div>
+          <div class="item" data-reveal>
+            <h3>Removing is instant, adding waits</h3>
+            <p>Take a tool off the home screen any time. Adding one back, or turning the whole
+              thing off, means sitting out the wait you chose.</p>
+          </div>
+          <div class="item" data-reveal>
+            <h3>During the trial, every wait is five minutes</h3>
+            <p>Long enough to feel how it works, short enough that nobody is stuck before they
+              have decided. The wait you chose starts with the purchase.</p>
+          </div>
+          <div class="item" data-reveal>
+            <h3>There is always a floor</h3>
+            <p>Android Safe Mode turns the app off on any phone. Emergency calls, alarms and
+              emergency alerts never wait.</p>
+          </div>
+        </div>
+      </div>
+      <div class="phone" data-reveal><img src="../assets/dumb-phone/11-wait.png" alt="The wait screen counting down" width="540" height="1080" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section id="price">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <p class="eyebrow">Price</p>
+        <h2>Try it for three days. Then one purchase.</h2>
+        <p class="lede">The download is free. Blocking and the home screen run for three days
+          with nothing to pay. After that, a single one-time purchase through Google Play.</p>
+      </div>
+      <div class="grid g2">
+        <div class="card product" data-reveal>
+          <div class="chip"><span class="dot"></span>Three days</div>
+          <h3>Live with it first</h3>
+          <p class="price">$0 <span>for three days</span></p>
+          <ul>
+            <li>The full home screen and blocking</li>
+            <li>Every wait is five minutes</li>
+            <li>When it ends, blocking turns off on its own</li>
+          </ul>
+        </div>
+        <div class="card product" data-reveal>
+          <div class="chip live"><span class="dot"></span>For good</div>
+          <h3>Unlock</h3>
+          <p class="price">$29.99 <span>once</span></p>
+          <ul>
+            <li>No subscription, no account</li>
+            <li>Follows your Google account to your next phone</li>
+            <li>Sets the wait to the one you chose</li>
+          </ul>
+          <p class="note">Less than the phones built for this, and you keep the one you have.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY / WHO -->
+  <section id="who">
+    <div class="wrap">
+      <div class="grid g2" style="margin-top:0">
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+          <h3>Your phone usage never leaves your phone</h3>
+          <p>No account. No analytics. The app does not read what is on your screen, does not
+            record anything, and sends nothing off the phone. Two things leave it, both by your
+            own action: your agreement to the Terms, and anything you type into a bug report.</p>
+        </div>
+        <div class="card" data-reveal>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg></div>
+          <h3>For adults, on their own phone</h3>
+          <p>Anchor Dumb Phone is for people 18 and older setting limits on a phone they own.
+            It is not a parental control and it is not built to run on someone else's phone.
+            For a kid's first phone, that is <a href="/#kidsvideo" style="color:var(--accent-ink);text-decoration:none">Anchor Kids</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <p class="eyebrow">Questions</p>
+        <h2>The things people ask first.</h2>
+      </div>
+      <div class="faq" data-reveal>
+        <details>
+          <summary>What if I need an app I did not pick?</summary>
+          <p class="a">Add it as a tool from Settings. It joins the home screen after your wait.
+            Up to three apps outside the standard set can be tools, so a banking app or a work
+            app is fine. Pick those at setup if you can, because adding later waits.</p>
+        </details>
+        <details>
+          <summary>Do links in text messages open?</summary>
+          <p class="a">No. A browser is never a tool, so a link has nowhere to go. That is on
+            purpose, and the setup screen says so before you commit.</p>
+        </details>
+        <details>
+          <summary>Can I still get calls and alarms?</summary>
+          <p class="a">Always. Phone calls including emergency calls, alarms, and government
+            emergency alerts are never silenced and never wait.</p>
+        </details>
+        <details>
+          <summary>What happens when the trial ends?</summary>
+          <p class="a">Blocking turns off on its own and the home screen offers the unlock.
+            Nothing is charged unless you buy it.</p>
+        </details>
+        <details>
+          <summary>Is there a way out if something goes wrong?</summary>
+          <p class="a">Yes. The app's own off switch, behind the wait you chose. And Android
+            Safe Mode turns the app off on any phone without waiting. The app never blocks
+            uninstall entirely.</p>
+        </details>
+        <details>
+          <summary>Why does it need the accessibility service?</summary>
+          <p class="a">It is how an Android app can notice which app is in front, which is what
+            sending a non-tool app back home requires. The app uses it for that and for backing
+            out of the settings pages that would turn blocking off before its wait is done. It
+            does not read your screen content, record anything, or send data anywhere. You turn
+            it on yourself, in Android's settings, after a plain explanation.</p>
+        </details>
+        <details>
+          <summary>Does it work with Anchor?</summary>
+          <p class="a">They are separate apps. Anchor is the one where a partner answers your
+            requests. Anchor Dumb Phone is solo: the wait is the only thing between you and the
+            old phone. Pick whichever fits how you want to be held to it.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <h2>The phone you have, with less on it.</h2>
+        <p class="lede">Android, three days to try, one purchase. It is in review on Google Play
+          now.</p>
+      </div>
+      <div class="ctas" data-reveal>
+        <a class="btn primary" href="mailto:support@anchorph.one?subject=Anchor%20Dumb%20Phone%3A%20tell%20me%20when%20it%20is%20live">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.3c0-.85.92-1.38 1.65-.95l14.5 8.7c.72.43.72 1.47 0 1.9l-14.5 8.7c-.73.43-1.65-.1-1.65-.95V3.3Z"/></svg>
+          Tell me when it is on Google Play
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 ANCHOR DIGITAL LLC</span>
+  <a href="https://github.com/hrweaver/anchor-legal/blob/main/DUMBPHONE_PRIVACY.md">Privacy</a>
+  <a href="https://github.com/hrweaver/anchor-legal/blob/main/DUMBPHONE_TERMS.md">Terms</a>
+  <a href="https://github.com/hrweaver/anchor-legal/blob/main/SUPPORT.md">Support</a>
+  <a href="mailto:support@anchorph.one">support@anchorph.one</a>
+</footer>
+
+<script>
+  (function(){
+    var bar = document.getElementById('topbar');
+    var onScroll = function(){ bar.classList.toggle('stuck', window.scrollY > 8); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('[data-reveal]');
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        var sibs = Array.prototype.slice.call(el.parentNode.children).indexOf(el);
+        el.style.transitionDelay = Math.min(sibs, 4) * 70 + 'ms';
+        el.classList.add('in');
+        io.unobserve(el);
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:0.12});
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+<!-- Cloudflare Web Analytics: cookieless, no personal data, so no consent banner. -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4c4a9b1961654700a74a862cc3b00bfd"}'></script>
+</body>
+</html>
