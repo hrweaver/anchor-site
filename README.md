@@ -28,10 +28,10 @@ privacy/index.html  Privacy Policy   → https://anchorph.one/privacy
 terms/index.html    Terms of Service → https://anchorph.one/terms
 build-legal.js      regenerates the two legal pages from ~/anchor-legal (see below)
 dumb-phone/index.html  Anchor Dumb Phone product page → https://anchorph.one/dumb-phone/
-                    DRAFT (2026-09-09): noindex, not linked from the home page. Copy comes from
+                    Linked from the home page nav and a hero strip since 2026-09-09. Copy comes from
                     ~/anchor-dumb-phone/docs/play/LISTING.md and DESIGN.md; claim only what ships.
                     Swap the mailto CTAs for the Play link (commented in the file) once the
-                    listing is public, drop the noindex, then link it from index.html.
+                    listing is public.
 assets/
   wordmark.png        the "anchor" wordmark (the "o" is an anchor glyph)
   favicon-32/64.png   browser-tab icon = the real app icon (periwinkle anchor on near-black)
