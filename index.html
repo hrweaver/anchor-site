@@ -127,12 +127,25 @@
   .kidsline img{height:24px;width:auto;flex:none}
   .head .kidsmark{height:28px;width:auto;display:block;margin:0 0 16px}
   .kidsline p{margin:0;font-size:.85rem;line-height:1.5;color:var(--faint)}
+  .lines{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-self:stretch;margin:26px 0 0}
+  .lines .kidsline{margin:0;align-items:flex-start;flex-direction:column;gap:10px}
+  .lines .kidsline p{text-align:left}
+  .kidsline .mark{display:flex;align-items:center;gap:10px;flex:none;border-bottom:0;text-decoration:none}
+  .kidsline a.mark:hover{border-bottom:0}
+  .kidsline .mark img{height:24px;width:auto}
+  .kidsline .mark span{font-family:var(--font-d);font-weight:700;font-size:1.15rem;
+                       color:var(--accent-ink);letter-spacing:-.01em;line-height:1}
   .kidsline a{color:var(--accent-ink);text-decoration:none;white-space:nowrap;
               border-bottom:1px solid rgba(169,181,246,.35)}
   .kidsline a:hover{border-bottom-color:var(--accent-ink)}
+  @media (max-width:760px){
+    .lines{grid-template-columns:1fr}
+  }
   @media (max-width:560px){
     .kidsline{flex-direction:column;gap:10px;text-align:center}
     .kidsline p{text-align:center}
+    .lines .kidsline{align-items:center}
+    .lines .kidsline p{text-align:center}
   }
 
   /* ---------- grids ---------- */
@@ -270,16 +283,20 @@
             Download on the App Store
           </a>
         </div>
-        <div class="kidsline" data-reveal>
-          <p><strong style="color:var(--ink);font-weight:600">New: Anchor Dumb Phone.</strong>
-            A dumb phone, on the Android you already own. No partner needed.
-            <a href="/dumb-phone/">See it</a>.</p>
-        </div>
-        <div class="kidsline" data-reveal>
-          <img src="assets/kids-wordmark.png" alt="Anchor Kids">
-          <p>A first phone that only calls and texts, in development now.
-            <a href="#kidsvideo">Watch the walkthrough</a>
-            or <a href="/pilot/">join the pilot</a>.</p>
+        <div class="lines" data-reveal>
+          <div class="kidsline">
+            <a class="mark" href="/dumb-phone/" aria-label="Anchor Dumb Phone">
+              <img src="assets/wordmark.png" alt="Anchor"><span>dumb phone</span>
+            </a>
+            <p>A dumb phone, on the Android you already own. No partner needed.
+              <a href="/dumb-phone/">See how it works</a>.</p>
+          </div>
+          <div class="kidsline">
+            <span class="mark"><img src="assets/kids-wordmark.png" alt="Anchor Kids"></span>
+            <p>A first phone that only calls and texts, in development now.
+              <a href="#kidsvideo">Watch the walkthrough</a>
+              or <a href="/pilot/">join the pilot</a>.</p>
+          </div>
         </div>
       </div>
     </div>
