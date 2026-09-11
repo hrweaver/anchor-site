@@ -581,6 +581,19 @@
     items.forEach(function(el){ io.observe(el); });
   })();
 </script>
+<script>
+  // Carry the ad source through to Play. Ads land here with ?utm_source=google or reddit; the Play
+  // links carry a fixed referrer of anchorph.one, so Play Console could not tell the channels apart.
+  // Rewrite the referrer with the page's own utm_* when present. No storage, nothing sent anywhere.
+  (function(){
+    var q = new URLSearchParams(location.search);
+    var src = q.get('utm_source'); if (!src) return;
+    var ref = 'utm_source=' + src + '&utm_medium=' + (q.get('utm_medium') || 'cpc') + '&utm_campaign=' + (q.get('utm_campaign') || 'dumb-phone');
+    document.querySelectorAll('a[href*="play.google.com/store/apps/details?id=com.anchorapp.dumbphone"]').forEach(function(a){
+      a.href = a.href.replace(/&referrer=[^&]*/, '') + '&referrer=' + encodeURIComponent(ref);
+    });
+  })();
+</script>
 <!-- Cloudflare Web Analytics: cookieless, no personal data, so no consent banner. -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4c4a9b1961654700a74a862cc3b00bfd"}'></script>
 </body>
